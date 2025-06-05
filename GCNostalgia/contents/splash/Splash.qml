@@ -23,20 +23,19 @@ import QtQuick.Window 2.2
 Rectangle {
     id: root
     color: "#000000"
-
+    
     property int stage: 0 // Initialize stage to 0
-    // Set a minimum display duration for the splash screen
-    property int minimumDisplayTime: 5060 // 5.06 seconds (adjust as needed)
-
+    // Removed: property int minimumDisplayTime
+    
     onStageChanged: {
         // Stage 1 usually means the splash screen is starting to animate in.
         if (stage === 1) {
             introAnimation.running = true;
-            // Start the timer when the intro animation begins
-            splashExitTimer.start();
+            // Removed: splashExitTimer.start();
         }
+        // The splash screen will now be dismissed by the system when the desktop is ready.
     }
-
+    
     Item {
         id: content
         anchors.fill: parent
@@ -48,13 +47,13 @@ Rectangle {
             property int largeSpacing: units.gridUnit
             property int smallSpacing: Math.max(2, gridUnit/4)
         }
-
+        
         Rectangle {
             id: imageSource
             color: "transparent"
             anchors.fill: parent
             clip: true;
-
+            
             AnimatedImage {
                 id: face
                 source: "images/plasma_d.gif"
@@ -64,7 +63,7 @@ Rectangle {
                 visible: true
             }
         }
-
+        
         // Plasma logo in the top-right corner
         Image {
             id: topRightPlasmaLogo
@@ -78,7 +77,7 @@ Rectangle {
             }
             opacity: 0.5 // Match the opacity of the bottom text/logo
         }
-
+        
         AnimatedImage {
             id: busyIndicator
             // In the middle of the remaining space
@@ -90,9 +89,9 @@ Rectangle {
             sourceSize.width: units.gridUnit * 6
             RotationAnimator on rotation {
                 id: rotationAnimator
-                from: 360 // Changed from 0
-                to: 0 // Changed from 360
-                duration: 2000 // Faster rotation for busy indicator
+                from: 360
+                to: 0
+                duration: 2000 // Rotation speed
                 loops: Animation.Infinite
             }
         }
@@ -121,7 +120,7 @@ Rectangle {
             }
         }
     }
-
+    
     // This animator fades in the entire content
     OpacityAnimator {
         id: introAnimation
@@ -132,28 +131,7 @@ Rectangle {
         duration: 1000 // Fade in quickly (1 second)
         easing.type: Easing.InOutQuad
     }
-
-    // This animator fades out the entire content when it's time to exit
-    OpacityAnimator {
-        id: exitAnimation
-        running: false
-        target: content
-        from: 1
-        to: 0
-        duration: 800 // Fade out over 0.8 seconds
-        easing.type: Easing.OutQuad
-    }
-
-    // Timer to control the minimum display time before initiating fade-out
-    Timer {
-        id: splashExitTimer
-        interval: minimumDisplayTime
-        running: false // Will be started when stage becomes 1
-        repeat: false
-        onTriggered: {
-            // Once the minimum display time has passed, start the exit animation.
-            // This will make the splash screen fade out gracefully.
-            exitAnimation.running = true;
-        }
-    }
+    
+    // Removed: OpacityAnimator for exitAnimation
+    // Removed: Timer for splashExitTimer
 }
