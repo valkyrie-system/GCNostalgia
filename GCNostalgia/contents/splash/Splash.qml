@@ -89,7 +89,7 @@ Rectangle {
             sourceSize.width: units.gridUnit * 6
             RotationAnimator on rotation {
                 id: rotationAnimator
-                from: 360
+                from: 0
                 to: 0
                 duration: 2000 // Rotation speed
                 loops: Animation.Infinite
