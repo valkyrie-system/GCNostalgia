@@ -1,0 +1,20 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "",
+                "Name": "valkyrie-syst"
+            }
+        ],
+        "Category": "",
+        "Description": "GCNostalgia for for Plasma6",
+        "Id": "GCNostalgia",
+        "License": "GPLv3",
+        "Name": "GCNostalgia",
+        "Website": ""
+    },
+    "Keywords": "Desktop;Workspace;Appearance;Look and Feel;Logout;Lock;Suspend;Shutdown;Hibernate;",
+    "X-Plasma-APIVersion": "2"
+}
+
