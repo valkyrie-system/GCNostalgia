@@ -143,17 +143,4 @@ Rectangle {
         duration: 800 // Fade out over 0.8 seconds
         easing.type: Easing.OutQuad
     }
-
-    // Timer to control the minimum display time before initiating fade-out
-    Timer {
-        id: splashExitTimer
-        interval: minimumDisplayTime
-        running: false // Will be started when stage becomes 1
-        repeat: false
-        onTriggered: {
-            // Once the minimum display time has passed, start the exit animation.
-            // This will make the splash screen fade out gracefully.
-            exitAnimation.running = true;
-        }
-    }
 }
