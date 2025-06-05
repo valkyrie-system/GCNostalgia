@@ -1,12 +1,10 @@
 # GCNostalgia: The Ultimate GameCube Plasma Splash Screen
 
-![Image](https://github.com/user-attachments/assets/d0dfd071-6d9a-4919-9b3b-2472eb69e6b3)
+![Here's the Splash in Action](https://github.com/valkyrie-system/GCNostalgia/blob/main/GCNostalgia.gif)
 
 ## Relive the Nostalgia on Your Desktop!
 
 Ever wished your Linux desktop could boot up with the iconic charm of a Nintendo GameCube? GCNostalgia is a custom KDE Plasma splash screen designed to bring that classic console's flair directly to your operating system. Featuring an animated GameCube boot logo and an optional authentic sound, this splash screen is perfect for gamers and retro enthusiasts alike.
-
-![Here's the Splash in Action](https://github.com/valkyrie-system/GCNostalgia/blob/main/GCNostalgia.gif)
 
 ---
 
