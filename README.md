@@ -64,56 +64,14 @@ To play the iconic GameCube boot sound, you'll need to create a simple autostart
 ~~* Obtain the `Nintendo_Gamecube_Boot.wav` sound file.~~
 ~~* Place it in a secure location, for example: `~/.config/autostart-scripts/` (create this directory if it doesn't exist).~~
     
-**Folder with script is now supplied in this repo with the wav, otherwise provide your own** ```
+~~**Folder with script is now supplied in this repo with the wav, otherwise provide your own**~~ ```
 
-**Users can also set their login sound for the splash screen at "System Settings > Apps & Windows > Notifications > System Notifications (top right) > Login" though it might not be properly timed**
-
-**2. Create the Login Script:**
-
-* Create a new file named `gamecube_boot_sound.sh` in the same directory:
-    `~/.config/autostart-scripts/gamecube_boot_sound.sh`
-
-* Paste the following content into the file:
-    ```bash
-    #!/bin/bash
-
-    # Wait for the splash screen to finish its animation
-    # Adjust '5.1' seconds if your splash screen duration changes
-    sleep 5.1
-
-    # Play the GameCube boot sound using paplay (requires PulseAudio/PipeWire)
-    paplay "/home/$(whoami)/.config/autostart-scripts/Nintendo_Gamecube_Boot.wav"
-
-    exit 0
-    ```
-    * **Explanation:**
-        * `sleep 5.1`: This command pauses the script for 5.1 seconds. This delay is crucial to ensure the sound plays *after* the visual splash animation is complete. You calculated your GIF duration to be 5.06 seconds, so 5.1 seconds provides a small buffer. If you change your GIF's duration in `splash.qml`, remember to update this `sleep` value.
-        * `paplay`: This command plays audio files via PulseAudio or PipeWire (which is compatible with PulseAudio).
-        * `"/home/$(whoami)/.config/autostart-scripts/Nintendo_Gamecube_Boot.wav"`: This constructs the path to your sound file dynamically, ensuring it works for any user.
-
-**3. Make the Script Executable:**
-
-* Open your terminal and run:
-    ```bash
-    chmod +x ~/.config/autostart-scripts/gamecube_boot_sound.sh
-    ```
-
-**4. Add the Script to Autostart:**
-
-* Open **KDE System Settings**.
-* Navigate to **"Startup and Shutdown"** (or "Workspace" -> "Autostart").
-* Click **"Add Program..."**.
-* In the file chooser, browse to `~/.config/autostart-scripts/` and select `gamecube_boot_sound.sh`.
-* Click **"OK"**.
+**Users can also set their login sound with the provided .WAV file for the splash screen at "System Settings > Apps & Windows > Notifications > System Notifications (top right) > Login" though it might not be properly timed**
 
 ---
 
 ### 📄 Licensing:
 
-This project's QML code is based on work by Marco Martin and is licensed under the GNU General Public License version 2 (or any later version). See the comments at the top of `splash.qml` for full details.
+This project's QML code is based on work by Marco Martin, adapted by Valkyries taking Flight and is licensed under the GNU General Public License version 2 (or any later version). See the comments at the top of `splash.qml` for full details.
 
 ---
-
-### 📸 Screenshots/Demo:
-
-*(Consider adding screenshots or a short video clip here to showcase your splash screen!)*
