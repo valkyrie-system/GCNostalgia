@@ -69,8 +69,8 @@ Rectangle {
         Image {
             id: topRightPlasmaLogo
             source: "images/plasma.svgz" // Make sure this path is correct
-            sourceSize.height: units.gridUnit * 10 // Adjust size as needed
-            sourceSize.width: units.gridUnit * 10 // Adjust size as needed
+            sourceSize.height: units.gridUnit * 12 // Adjust size as needed
+            sourceSize.width: units.gridUnit * 12 // Adjust size as needed
             anchors {
                 top: parent.top
                 right: parent.right
@@ -86,8 +86,8 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.margins: units.gridUnit
             source: "images/busywidget.gif"
-            sourceSize.height: units.gridUnit * 6
-            sourceSize.width: units.gridUnit * 6
+            sourceSize.height: units.gridUnit * 4
+            sourceSize.width: units.gridUnit * 4
             RotationAnimator on rotation {
                 id: rotationAnimator
                 from: 0
