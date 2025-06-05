@@ -23,19 +23,20 @@ import QtQuick.Window 2.2
 Rectangle {
     id: root
     color: "#000000"
-    
+
     property int stage: 0 // Initialize stage to 0
-    // Removed: property int minimumDisplayTime
-    
+    // Define the total desired duration for the splash screen's visual presence
+    property int totalSplashDuration: 5060 // 5.06 seconds for audio sync
+
     onStageChanged: {
         // Stage 1 usually means the splash screen is starting to animate in.
         if (stage === 1) {
             introAnimation.running = true;
-            // Removed: splashExitTimer.start();
+            // Start the timer to control the splash screen's total duration
+            splashExitTimer.start();
         }
-        // The splash screen will now be dismissed by the system when the desktop is ready.
     }
-    
+
     Item {
         id: content
         anchors.fill: parent
@@ -47,13 +48,13 @@ Rectangle {
             property int largeSpacing: units.gridUnit
             property int smallSpacing: Math.max(2, gridUnit/4)
         }
-        
+
         Rectangle {
             id: imageSource
             color: "transparent"
             anchors.fill: parent
             clip: true;
-            
+
             AnimatedImage {
                 id: face
                 source: "images/plasma_d.gif"
@@ -63,7 +64,7 @@ Rectangle {
                 visible: true
             }
         }
-        
+
         // Plasma logo in the top-right corner
         Image {
             id: topRightPlasmaLogo
@@ -77,7 +78,7 @@ Rectangle {
             }
             opacity: 0.5 // Match the opacity of the bottom text/logo
         }
-        
+
         AnimatedImage {
             id: busyIndicator
             // In the middle of the remaining space
@@ -120,7 +121,7 @@ Rectangle {
             }
         }
     }
-    
+
     // This animator fades in the entire content
     OpacityAnimator {
         id: introAnimation
@@ -131,7 +132,28 @@ Rectangle {
         duration: 1000 // Fade in quickly (1 second)
         easing.type: Easing.InOutQuad
     }
-    
-    // Removed: OpacityAnimator for exitAnimation
-    // Removed: Timer for splashExitTimer
+
+    // This animator fades out the entire content when it's time to exit
+    OpacityAnimator {
+        id: exitAnimation
+        running: false
+        target: content
+        from: 1
+        to: 0
+        duration: 800 // Fade out over 0.8 seconds
+        easing.type: Easing.OutQuad
+    }
+
+    // Timer to trigger the exit animation to ensure total splash duration
+    Timer {
+        id: splashExitTimer
+        // Interval: totalSplashDuration minus the exit animation duration
+        interval: totalSplashDuration - exitAnimation.duration
+        running: false // Will be started when stage becomes 1
+        repeat: false
+        onTriggered: {
+            // Once the calculated hold time has passed, start the exit animation.
+            exitAnimation.running = true;
+        }
+    }
 }
