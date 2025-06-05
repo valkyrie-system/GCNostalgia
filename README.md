@@ -57,15 +57,14 @@ You can personalize the splash screen's appearance by editing the QML file:
 
 To play the iconic GameCube boot sound, you'll need to create a simple autostart script. This script uses `paplay` (part of PulseAudio/PipeWire) to play a WAV file.
 
-**1. Prepare Your Sound File:**
+~~1. Prepare Your Sound File:~~
 
-* Obtain the `Nintendo_Gamecube_Boot.wav` sound file.
-* Place it in a secure location, for example: `~/.config/autostart-scripts/` (create this directory if it doesn't exist).
-    ```bash
+~~* Obtain the `Nintendo_Gamecube_Boot.wav` sound file.~~
+~~* Place it in a secure location, for example: `~/.config/autostart-scripts/` (create this directory if it doesn't exist).~~
+~~```bash~~
     ~~mkdir -p ~/.config/autostart-scripts/~~
     ~~cp /path/to/Nintendo_Gamecube_Boot.wav ~/.config/autostart-scripts/~~
-    ```
-Folder with script is now supplied in this repo with the wav, otherwise provide your own
+``` **Folder with script is now supplied in this repo with the wav, otherwise provide your own**
 
     ***Users can also set their login sound for the splash screen at "System Settings > Apps & Windows > Notifications > System Notifications (top right) > Login" though it might not be properly timed**
 
