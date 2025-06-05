@@ -26,7 +26,7 @@ Rectangle {
 
     property int stage: 0 // Initialize stage to 0
     // Set a minimum display duration for the splash screen
-    property int minimumDisplayTime: 4000 // 4 seconds (adjust as needed)
+    property int minimumDisplayTime: 5060 // 5.06 seconds (adjust as needed)
 
     onStageChanged: {
         // Stage 1 usually means the splash screen is starting to animate in.
@@ -65,12 +65,12 @@ Rectangle {
             }
         }
 
-        // NEW: Plasma logo in the top-right corner
+        // Plasma logo in the top-right corner
         Image {
             id: topRightPlasmaLogo
             source: "images/plasma.svgz" // Make sure this path is correct
-            sourceSize.height: units.gridUnit * 12 // Adjust size as needed
-            sourceSize.width: units.gridUnit * 12 // Adjust size as needed
+            sourceSize.height: units.gridUnit * 10 // Adjust size as needed
+            sourceSize.width: units.gridUnit * 10 // Adjust size as needed
             anchors {
                 top: parent.top
                 right: parent.right
@@ -86,12 +86,12 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.margins: units.gridUnit
             source: "images/busywidget.gif"
-            sourceSize.height: units.gridUnit * 4
-            sourceSize.width: units.gridUnit * 4
+            sourceSize.height: units.gridUnit * 6
+            sourceSize.width: units.gridUnit * 6
             RotationAnimator on rotation {
                 id: rotationAnimator
-                from: 0
-                to: 0 // Set to 360 to have Gamecube busywidget Spin a full circle
+                from: 360 // Changed from 0
+                to: 0 // Changed from 360
                 duration: 2000 // Faster rotation for busy indicator
                 loops: Animation.Infinite
             }
@@ -142,5 +142,18 @@ Rectangle {
         to: 0
         duration: 800 // Fade out over 0.8 seconds
         easing.type: Easing.OutQuad
+    }
+
+    // Timer to control the minimum display time before initiating fade-out
+    Timer {
+        id: splashExitTimer
+        interval: minimumDisplayTime
+        running: false // Will be started when stage becomes 1
+        repeat: false
+        onTriggered: {
+            // Once the minimum display time has passed, start the exit animation.
+            // This will make the splash screen fade out gracefully.
+            exitAnimation.running = true;
+        }
     }
 }
