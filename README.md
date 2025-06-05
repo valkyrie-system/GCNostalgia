@@ -1,6 +1,6 @@
 # GCNostalgia: The Ultimate GameCube Plasma Splash Screen
 
-
+![Image](https://github.com/user-attachments/assets/d0dfd071-6d9a-4919-9b3b-2472eb69e6b3)
 
 ## Relive the Nostalgia on Your Desktop!
 
