@@ -6,6 +6,8 @@
 
 Ever wished your Linux desktop could boot up with the iconic charm of a Nintendo GameCube? GCNostalgia is a custom KDE Plasma splash screen designed to bring that classic console's flair directly to your operating system. Featuring an animated GameCube boot logo and an optional authentic sound, this splash screen is perfect for gamers and retro enthusiasts alike.
 
+## Now on Pling! https://www.pling.com/p/2293985/
+
 ---
 
 ### ✨ Features:
