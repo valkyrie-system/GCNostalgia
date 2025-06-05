@@ -1,20 +1,20 @@
 /*
- *   Copyright 2014 Marco Martin <mart@kde.org>
+ * Copyright 2014 Marco Martin <mart@kde.org>
  *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   or (at your option) any later version, as published by the Free
- *   Software Foundation
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * or (at your option) any later version, as published by the Free
+ * Software Foundation
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details
  *
- *   You should have received a copy of the GNU General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 import QtQuick 2.5
@@ -24,23 +24,23 @@ Rectangle {
     id: root
     color: "#000000"
 
-    property int stage
+    property int stage: 0 // Initialize stage to 0
+    // Set a minimum display duration for the splash screen
+    property int minimumDisplayTime: 4000 // 4 seconds (adjust as needed)
 
     onStageChanged: {
-        if (stage == 1) {
+        // Stage 1 usually means the splash screen is starting to animate in.
+        if (stage === 1) {
             introAnimation.running = true;
-        } else if (stage == 5) {
-            introAnimation.target = busyIndicator;
-            introAnimation.from = 1;
-            introAnimation.to = 0;
-            introAnimation.running = true;
+            // Start the timer when the intro animation begins
+            splashExitTimer.start();
         }
     }
 
     Item {
         id: content
         anchors.fill: parent
-        opacity: 0
+        opacity: 0 // Start hidden, then fade in with introAnimation
         TextMetrics {
             id: units
             text: "M"
@@ -50,9 +50,8 @@ Rectangle {
         }
 
         Rectangle {
-
             id: imageSource
-            color:  "transparent"
+            color: "transparent"
             anchors.fill: parent
             clip: true;
 
@@ -66,32 +65,46 @@ Rectangle {
             }
         }
 
+        // NEW: Plasma logo in the top-right corner
+        Image {
+            id: topRightPlasmaLogo
+            source: "images/plasma.svgz" // Make sure this path is correct
+            sourceSize.height: units.gridUnit * 10 // Adjust size as needed
+            sourceSize.width: units.gridUnit * 10 // Adjust size as needed
+            anchors {
+                top: parent.top
+                right: parent.right
+                margins: units.gridUnit // Use the grid unit for consistent spacing
+            }
+            opacity: 0.5 // Match the opacity of the bottom text/logo
+        }
+
         AnimatedImage {
             id: busyIndicator
-            //in the middle of the remaining space
-            y: parent.height - 100
+            // In the middle of the remaining space
+            y: parent.height - 135
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.margins: units.gridUnit
             source: "images/busywidget.gif"
-            sourceSize.height: units.gridUnit * 4
-            sourceSize.width: units.gridUnit * 4
+            sourceSize.height: units.gridUnit * 6
+            sourceSize.width: units.gridUnit * 6
             RotationAnimator on rotation {
                 id: rotationAnimator
                 from: 0
-                to: 0
-                duration: 5060
+                to: 0 // Set to 360 to have Gamecube busywidget Spin a full circle
+                duration: 2000 // Faster rotation for busy indicator
                 loops: Animation.Infinite
             }
         }
         Row {
-            opacity: 0.5
-            spacing: units.smallSpacing*2
+            id: bottomTextAndLogo
+            opacity: 0.5 // Start with some transparency
+            spacing: units.smallSpacing * 2
             anchors {
                 bottom: parent.bottom
-                // right: parent.right
+                left: parent.left // Align to the left
                 margins: units.gridUnit
             }
-            anchors.horizontalCenter: parent.verticalCenter
             Text {
                 color: "#eff0f1"
                 // Work around Qt bug where NativeRendering breaks for non-integer scale factors
@@ -109,13 +122,38 @@ Rectangle {
         }
     }
 
+    // This animator fades in the entire content
     OpacityAnimator {
         id: introAnimation
         running: false
         target: content
         from: 0
         to: 1
-        duration: 10
+        duration: 1000 // Fade in quickly (1 second)
         easing.type: Easing.InOutQuad
+    }
+
+    // This animator fades out the entire content when it's time to exit
+    OpacityAnimator {
+        id: exitAnimation
+        running: false
+        target: content
+        from: 1
+        to: 0
+        duration: 800 // Fade out over 0.8 seconds
+        easing.type: Easing.OutQuad
+    }
+
+    // Timer to control the minimum display time before initiating fade-out
+    Timer {
+        id: splashExitTimer
+        interval: minimumDisplayTime
+        running: false // Will be started when stage becomes 1
+        repeat: false
+        onTriggered: {
+            // Once the minimum display time has passed, start the exit animation.
+            // This will make the splash screen fade out gracefully.
+            exitAnimation.running = true;
+        }
     }
 }
