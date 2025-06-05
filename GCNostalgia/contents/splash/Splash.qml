@@ -25,16 +25,15 @@ Rectangle {
     color: "#000000"
 
     property int stage: 0 // Initialize stage to 0
-    // Define the total desired duration for the splash screen's visual presence
-    property int totalSplashDuration: 5060 // 5.06 seconds for audio sync
+    // Removed totalSplashDuration as the GIF duration now dictates main animation time
 
     onStageChanged: {
         // Stage 1 usually means the splash screen is starting to animate in.
         if (stage === 1) {
             introAnimation.running = true;
-            // Start the timer to control the splash screen's total duration
-            splashExitTimer.start();
+            // Removed splashExitTimer.start();
         }
+        // The splash screen will now be dismissed by the system after introAnimation finishes.
     }
 
     Item {
@@ -129,31 +128,10 @@ Rectangle {
         target: content
         from: 0
         to: 1
-        duration: 1000 // Fade in quickly (1 second)
+        duration: 5060 // Set to 5.06 seconds to match the GIF duration
         easing.type: Easing.InOutQuad
     }
 
-    // This animator fades out the entire content when it's time to exit
-    OpacityAnimator {
-        id: exitAnimation
-        running: false
-        target: content
-        from: 1
-        to: 0
-        duration: 800 // Fade out over 0.8 seconds
-        easing.type: Easing.OutQuad
-    }
-
-    // Timer to trigger the exit animation to ensure total splash duration
-    Timer {
-        id: splashExitTimer
-        // Interval: totalSplashDuration minus the exit animation duration
-        interval: totalSplashDuration - exitAnimation.duration
-        running: false // Will be started when stage becomes 1
-        repeat: false
-        onTriggered: {
-            // Once the calculated hold time has passed, start the exit animation.
-            exitAnimation.running = true;
-        }
-    }
+    //Removed: OpacityAnimator for exitAnimation (not needed if introAnimation covers full duration)
+    //Removed: Timer for splashExitTimer (not needed if introAnimation covers full duration)
 }
