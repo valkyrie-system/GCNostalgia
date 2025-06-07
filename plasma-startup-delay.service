@@ -1,0 +1,15 @@
+[Unit]
+Description=Delay Plasma 6.5 Startup
+After=network-online.target
+PartOf=plasma-workspace.target
+Before=plasma-workspace.target
+Requisite=plasma-workspace.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/sleep 6
+ExecStart=/bin/true
+RemainAfterExit=yes
+
+[Install]
+WantedBy=plasma-workspace.target
