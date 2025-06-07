@@ -70,6 +70,38 @@ To play the iconic GameCube boot sound, you'll need to create a simple autostart
 
 ---
 
+### Delay Plasma 6.5 Startup Service
+
+This systemd user service introduces a 6-second delay during Plasma 6.5 startup. This can be beneficial for systems where background services or network connections need a bit more time to initialize before the desktop environment fully loads.
+Installation Steps
+
+    Place the service file: Copy the provided plasma-delay.service file into your user's systemd configuration directory:
+    Bash
+
+mkdir -p ~/.config/systemd/user/
+cp plasma-delay.service ~/.config/systemd/user/
+
+(Assuming plasma-delay.service is in your current directory.)
+
+Reload systemd and enable the service:
+Bash
+
+    systemctl --user daemon-reload
+    systemctl --user enable plasma-delay.service
+
+    Restart your system (or log out and back in) for the service to take effect.
+
+Verification (Optional)
+
+To check the service's status:
+Bash
+
+systemctl --user status plasma-delay.service
+
+You should see active (exited) and enabled in the output.
+
+---
+
 ### 📄 Licensing:
 
 This project's QML code is based on work by Marco Martin, adapted by Valkyries taking Flight and is licensed under the GNU General Public License version 2 (or any later version). See the comments at the top of `splash.qml` for full details.
