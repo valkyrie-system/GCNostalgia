@@ -70,7 +70,7 @@ To play the iconic GameCube boot sound, you'll need to create a simple autostart
 
 ---
 
-### Delay Plasma 6.5 Startup Service
+### Optional: Delay Plasma 6.5 Startup Service
 
 This systemd user service introduces a 6-second delay during Plasma 6.5 startup. This can be beneficial for systems where background services or network connections need a bit more time to initialize before the desktop environment fully loads.
 Installation Steps
